@@ -15,7 +15,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   dynamic "addons" {
     for_each = var.cluster_addons
     content {
-      name   = lookup(addons.value, "name", var.cluster_addons)
+      name   = lookup(addons.value, "name", var.cluster_addons)   // cant get it why var.cluster_addons for default value
       config = lookup(addons.value, "config", var.cluster_addons)
     }
   }
