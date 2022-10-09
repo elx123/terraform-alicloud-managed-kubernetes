@@ -57,7 +57,7 @@ variable "availability_zones" {
 variable "new_eip_bandwidth" {
   description = "The bandwidth used to create a new EIP when 'new_vpc' is true."
   type        = number
-  default     = 50
+  default     = 200
 }
 variable "new_nat_gateway" {
   description = "Seting it to true can create a new nat gateway automatically in a existing VPC. If 'new_vpc' is true, it will be ignored."
