@@ -27,7 +27,7 @@ resource "alicloud_vswitch" "new" {
   name              = local.new_vpc_name
   tags              = local.new_vpc_tags
 }
-
+ 
 resource "alicloud_nat_gateway" "new" {
   count  = var.new_vpc == true ? 1 : 0
   vpc_id = concat(alicloud_vpc.new.*.id, [""])[0]
@@ -44,9 +44,10 @@ resource "alicloud_eip" "new" {
 
 resource "alicloud_eip_association" "new" {
   count         = var.new_vpc == true ? 1 : 0
-  allocation_id = concat(alicloud_eip.new.*.id, [""])[0]
-  instance_id   = concat(alicloud_nat_gateway.new.*.id, [""])[0]
+  allocation_id = concat(alicloud_eip.new[*].id, [""])[0]
+  instance_id   = concat(alicloud_nat_gateway.new[*].id, [""])[0]
 }
+
 
 resource "alicloud_snat_entry" "new" {
   count             = var.new_vpc == true ? length(var.vswitch_cidrs) : 0
